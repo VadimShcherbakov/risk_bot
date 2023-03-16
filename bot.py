@@ -3,7 +3,7 @@ import logging
 
 from aiogram import Bot, Dispatcher
 from config_data.config import Config, load_config
-from handlers import other_handlers, user_handlers
+from handlers import *
 from aiogram.fsm.storage.memory import MemoryStorage
 
 # Инициализируем логгер
@@ -35,7 +35,11 @@ async def main():
     user_dict: dict[int, dict[str, str | int | bool]] = {}
 
     # Регистриуем роутеры в диспетчере
-    dp.include_router(user_handlers.router)
+    dp.include_router(system_handlers.router)
+    dp.include_router(send_photo_handlers.router)
+    dp.include_router(move_handlers.router)
+    dp.include_router(new_risk_handlers.router)
+    dp.include_router(elimination_risk_handlers.router)
     dp.include_router(other_handlers.router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling

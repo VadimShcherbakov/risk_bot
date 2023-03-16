@@ -31,7 +31,6 @@ class CorrectInputNumRisk(BaseFilter):
         pattern = r"(\d{1,2})-(\d{1,3})-([12])"
         strings = message.text
         if re.fullmatch(pattern, strings):
-            print("нашел")
             return {'num_risk': strings}
         return False
 
