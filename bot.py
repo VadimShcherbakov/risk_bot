@@ -4,6 +4,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from config_data.config import Config, load_config
 from handlers import other_handlers, user_handlers
+from aiogram.fsm.storage.memory import MemoryStorage
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
@@ -23,9 +24,15 @@ async def main():
     # Загружаем конфиг в переменную config
     config: Config = load_config()
 
+    # Инициализируем хранилище (создаем экземпляр класса MemoryStorage)
+    storage: MemoryStorage = MemoryStorage()
+
     # Инициализируем бот и диспетчер
     bot: Bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
     dp: Dispatcher = Dispatcher()
+
+    # Создаем "базу данных" пользователей
+    user_dict: dict[int, dict[str, str | int | bool]] = {}
 
     # Регистриуем роутеры в диспетчере
     dp.include_router(user_handlers.router)

@@ -1,22 +1,15 @@
-from aiogram.types import KeyboardButton
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
+from aiogram.types import (InlineKeyboardButton, InlineKeyboardMarkup)
 
 from lexicon.lexicon_ru import LEXICON_RU
 
-# ------- Создаем клавиатуру через ReplyKeyboardBuilder -------
+# Создаем объекты инлайн-кнопок
+new_risk_button = InlineKeyboardButton(text=LEXICON_RU['new_risk_button'],
+                                       callback_data='new_risk')
+elimination_risk_button = InlineKeyboardButton(text=LEXICON_RU['elimination_risk_button'],
+                                               callback_data='elimination_risk')
 
-# Создаем кнопки с ответами согласия и отказа
-button_new_risk: KeyboardButton = KeyboardButton(text=LEXICON_RU['new_risk_button'])
-button_elimination_risk: KeyboardButton = KeyboardButton(text=LEXICON_RU['elimination_risk_button'])
-
-# Инициализируем билдер для клавиатуры с кнопками "Отправка нового риска" и "Устранение риска"
-yes_no_kb_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
-
-# Добавляем кнопки в билдер с параметром width=2
-yes_no_kb_builder.row(button_new_risk, button_elimination_risk, width=2)
-
-# Создаем клавиатуру с кнопками "Отправка нового риска" и "Устранение риска"
-new_elimination_risk_kb = yes_no_kb_builder.as_markup(
-                                one_time_keyboard=True,
-                                resize_keyboard=True)
+# Добавляем кнопки в клавиатуру (две в одном ряду и одну в другом)
+keyboard: list[list[InlineKeyboardButton]] = [[new_risk_button, elimination_risk_button]]
+# Создаем объект инлайн-клавиатуры
+new_elimination_risk_kb = InlineKeyboardMarkup(inline_keyboard=keyboard)
 
