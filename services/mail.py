@@ -8,26 +8,25 @@ from email import encoders
 from platform import python_version
 
 
-def mail( post_text: str) -> None:
+def mail(post_text: str, filepath: str) -> None:
 
     mail = imaplib.IMAP4_SSL('imap.mail.ru')
     mail.login('pgva@bk.ru', 'C9BFX3ssXduN6W15kSmB')
 
     mail.list()
-    print('Подключение к почте - успешно', mail.select("inbox"))
+    # print('Подключение к почте - успешно', mail.select("inbox"))
     server = 'smtp.mail.ru'
     user = 'pgva@bk.ru'
     password = 'C9BFX3ssXduN6W15kSmB'
 
     recipients = ['scherbakovvp@mosenergo.ru']
     sender = 'pgva@bk.ru'
-    subject = 'Устранение рисков'
-    text = f'Добрый день! У вас есть {post_text}. Таблица рисков  в приложении к письму:'
+    subject = post_text
+    text = f'Добрый день! У вас есть {post_text}.'
     html = '<html><head></head><body><p>' + text + '</p></body></html>'
 
     main_table = MIMEText('<h3>Таблица рисков</h3>', 'html')
 
-    filepath = "таблица_рисков.xlsx"
     basename = os.path.basename(filepath)
     filesize = os.path.getsize(filepath)
 
@@ -58,7 +57,7 @@ def mail( post_text: str) -> None:
     mail.login(user, password)
     mail.sendmail(sender, recipients, msg.as_string())
     mail.quit()
-    print('Письмо отправлено')
+    # print('Письмо отправлено')
 
 
 
