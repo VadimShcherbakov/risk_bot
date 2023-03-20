@@ -6,12 +6,13 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 from platform import python_version
+from config_data.config import *
 
 
 def mail(post_text: str, filepath: str) -> None:
-
+    config: Config = load_config()
     mail = imaplib.IMAP4_SSL('imap.mail.ru')
-    mail.login('pgva@bk.ru', 'C9BFX3ssXduN6W15kSmB')
+    mail.login(config.mail_data.mail_user, config.mail_data.mail_password)
 
     mail.list()
     # print('Подключение к почте - успешно', mail.select("inbox"))
