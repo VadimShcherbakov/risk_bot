@@ -8,8 +8,9 @@ import re
 
 @dataclass
 class MailConfig:
-    mail_user: str          # Username пользователя базы данных
-    mail_password: str      # Пароль к базе данных
+    mail_user: str          # Username имя пользователя
+    mail_password: str      # Пароль к базе к почте
+    mail_recipients: str  # Получатели почты
 
 
 @dataclass
@@ -48,5 +49,6 @@ def load_config(path: str | None = None) -> Config:
     env.read_env(path)
     return Config(tg_bot=TgBot(token=env('BOT_TOKEN')),
                   mail_data=MailConfig(mail_user=env('MAIL'),
-                                       mail_password=env('MAIL_PASSWORD'))
+                                       mail_password=env('MAIL_PASSWORD'),
+                                       mail_recipients=env('MAIL_RECIPIENTS'))
                   )

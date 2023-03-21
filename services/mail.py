@@ -17,16 +17,14 @@ def mail(post_text: str, filepath: str) -> None:
     mail.list()
     # print('Подключение к почте - успешно', mail.select("inbox"))
     server = 'smtp.mail.ru'
-    user = 'pgva@bk.ru'
-    password = 'C9BFX3ssXduN6W15kSmB'
+    user = config.mail_data.mail_user
+    password = config.mail_data.mail_password
 
-    recipients = ['scherbakovvp@mosenergo.ru']
-    sender = 'pgva@bk.ru'
+    recipients = [config.mail_data.mail_recipients]
+    sender = config.mail_data.mail_user
     subject = post_text
     text = f'Добрый день! У вас есть {post_text}.'
     html = '<html><head></head><body><p>' + text + '</p></body></html>'
-
-    main_table = MIMEText('<h3>Таблица рисков</h3>', 'html')
 
     basename = os.path.basename(filepath)
     filesize = os.path.getsize(filepath)
@@ -51,8 +49,6 @@ def mail(post_text: str, filepath: str) -> None:
     msg.attach(part_text)
     msg.attach(part_html)
     msg.attach(part_file)
-    msg.attach(main_table)
-
 
     mail = smtplib.SMTP_SSL(server)
     mail.login(user, password)
