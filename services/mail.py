@@ -9,6 +9,7 @@ from platform import python_version
 from config_data.config import *
 
 
+#Модуль для отправки писем
 def mail(post_text: str, filepath: str) -> None:
     config: Config = load_config()
     mail = imaplib.IMAP4_SSL('imap.mail.ru')
