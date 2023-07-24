@@ -109,7 +109,7 @@ async def process_name_sent(message: Message, state: FSMContext):
     await bot.download(user_dict[message.from_user.id]['photo_id'], path)
     await message.answer(text=LEXICON_RU['accepted_review_answer'])
     print(user_dict)
-    mail('новый риск',path)
+    mail('новый риск', path)
     os.remove(path)
     # Завершаем машину состояний
     await state.clear()
