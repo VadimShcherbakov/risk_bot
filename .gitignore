@@ -1,5 +1,9 @@
+venv/
 .env
 .mypy_cache/
-.vscode/
-venv/
 __pycache__/
+.vscode/
+something_else/
+pygame_async_demo/
+test/
+temp/
